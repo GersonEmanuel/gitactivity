@@ -1,9 +1,13 @@
 import requests
 
-user = str(input('Digite o nome do usuario: '))
-url =   f'https://api.github.com/users/{user}/events'
-activity = requests.get(url)
-for i in activity.json():
+def get_activities(user):
+    activity =   requests.get(f'https://api.github.com/users/{user}/events')
+    return activity.json() if activity.status_code == 200 else None
+
+user = str(input('which user would you like to view activity? '))
+activities = get_activities(user)
+
+for i in activities:
     if i['type'] == 'IssueCommentEvent':
         print(f"- {user}: commented on issue {i['payload']['issue']['number']}")
     elif i['type'] == 'PushEvent':

@@ -1,1 +1,1 @@
-view the lastest events from a user
+view the lastest events from a user in github
